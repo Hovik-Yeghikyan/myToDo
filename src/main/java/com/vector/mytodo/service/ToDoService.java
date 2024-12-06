@@ -6,6 +6,7 @@ import com.vector.mytodo.model.ToDo;
 import com.vector.mytodo.util.DateUtil;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +44,12 @@ public class ToDoService {
                 return ToDo.builder()
                         .id(resultSet.getInt("id"))
                         .title(resultSet.getString("title"))
-                        .createdDate(resultSet.getDate("created_date"))
+                        .createdDate(DateUtil.fromSqlStringToDateTime(resultSet.getString("created_date")))
                         .user(userService.getUserById(resultSet.getInt("user_id")))
                         .status(Status.valueOf(resultSet.getString("status")))
                         .build();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
         return null;

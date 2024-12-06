@@ -9,12 +9,17 @@ public abstract class DateUtil {
     private static final SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
     private static final SimpleDateFormat SDF_SQL = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat SDF_DATE_TIME_SQL = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    private static final SimpleDateFormat SDF_DATE_TO_WEB = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat SDF_DATE_TO_WEB = new SimpleDateFormat("yyyy-MM-dd" );
+    private static final SimpleDateFormat SDF_DATE_TIME_TO_WEB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" );
 
 
     public static Date fromStringToWeb(String dateStr) throws ParseException {
         return SDF_DATE_TO_WEB.parse(dateStr);
     }
+        public static String fromDateTimeToWeb(Date date){
+        return SDF_DATE_TIME_TO_WEB.format(date);
+        }
+
 
     public static String fromWebToString(Date date) {
         return SDF_DATE_TO_WEB.format(date);

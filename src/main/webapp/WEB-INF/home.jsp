@@ -1,7 +1,8 @@
-
 <%@ page import="java.util.List" %>
 <%@ page import="com.vector.mytodo.model.User" %>
 <%@ page import="com.vector.mytodo.model.ToDo" %>
+<%@ page import="com.vector.mytodo.util.DateUtil" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 
@@ -84,49 +85,48 @@ Welcome <%=user.getName() + " " + user.getSurname()%>
         </div>
     </div>
     <div class="p-2 mx-4 border-black-25 border-bottom"></div>
-    <tr>
-            <%
-        if (!toDoList.isEmpty()){
-            for (ToDo toDo : toDoList) {%>
-
-
-            <%
-       User user =(User) request.getSession().getAttribute("user");
-        if (user.equals(toDo.getUser())) {%>
-    <tr>
-
-    <table  width="100%">
+    <%
+        if (!toDoList.isEmpty()) {%>
+    <table width="100%">
         <tr>
             <th>Title</th>
             <th>Created Date</th>
-            <%if (toDo.getFinishDate()!=null){%>
             <th>Finish Date</th>
-            <%}%>
             <th>Status</th>
             <th>Created by</th>
-            <%--            <th>Edit</th>--%>
-            <%--            <th>Update</th>--%>
-            <%--            <th>Delete</th>--%>
         </tr>
 
+        <%for (ToDo toDo : toDoList) {%>
 
-            <td><%=toDo.getTitle()%>
-            </td>
-            <td><%=toDo.getCreatedDate()%>
-            </td>
-        <%if (toDo.getFinishDate()!=null){%>
-            <td><%=toDo.getFinishDate()%>
-            </td>
+
+        <%
+            User user = (User) request.getSession().getAttribute("user");
+            if (user.equals(toDo.getUser())) {%>
+
+        <td><%=toDo.getTitle()%>
+        </td>
+        <td><%=toDo.getCreatedDate()%>
+        </td>
+        <%if (toDo.getFinishDate() != null) {%>
+        <td><%=toDo.getFinishDate()%>
+        </td>
+        <%} else {%>
+        <td>------------</td>
         <%}%>
+        <td><%=toDo.getStatus()%>
+        </td>
+        <td><%=toDo.getUser().getName() + " " + toDo.getUser().getSurname()%>
+        </td>
 
-            <td><%=toDo.getStatus()%>
-            </td>
-            <td><%=toDo.getUser().getName() + " " + toDo.getUser().getSurname()%>
-            </td>
-
-            <td><a href="/editToDos?id=<%=toDo.getId()%>"><button class="btn btn-primary">Edit</button> </a></td>
-            <td><a href="/updateToDos?id=<%=toDo.getId()%>"><button class="btn btn-primary">Update</button> </a></td>
-            <td><a href="/deleteToDos?id=<%=toDo.getId()%>"><button class="btn btn-primary">Delete</button> </a></td>
+        <td><a href="/editToDos?id=<%=toDo.getId()%>">
+            <button class="btn btn-primary">Edit</button>
+        </a></td>
+        <td><a href="/updateToDos?id=<%=toDo.getId()%>">
+            <button class="btn btn-primary">Update</button>
+        </a></td>
+        <td><a href="/deleteToDos?id=<%=toDo.getId()%>">
+            <button class="btn btn-primary">Delete</button>
+        </a></td>
         </tr>
 
         <% }%>
