@@ -18,9 +18,6 @@ Edit ToDO <br>
         <tr>
             <th>Title</th>
             <th>Created Date</th>
-            <%if (toDo.getFinishDate()!=null){%>
-            <th>Finish Date</th>
-            <%}%>
             <th>Status</th>
             <th>Created by</th>
         </tr>
@@ -29,10 +26,6 @@ Edit ToDO <br>
         </td>
         <td><%=toDo.getCreatedDate()%>
         </td>
-        <%if (toDo.getFinishDate()!=null){%>
-        <td><%=toDo.getFinishDate()%>
-        </td>
-        <%}%>
         <td><%=toDo.getStatus()%>
         </td>
         <td><%=toDo.getUser().getName() + " " + toDo.getUser().getSurname()%>
